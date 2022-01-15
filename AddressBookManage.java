@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class AddressBookManage {
 
     private Map<String, AddressBook> nameToAddressBookMap;
-    public 	List<String> valuePrinted;
+    public List<String> valuePrinted;
     private int countPerson;
 
     public AddressBookManage( ) {
@@ -37,6 +37,7 @@ public class AddressBookManage {
         }
         return true;
     }
+
 
     public void viewAddBooks() {
         for(int i=0; i< nameToAddressBookMap.size(); i++) {
@@ -70,6 +71,7 @@ public class AddressBookManage {
         } catch (NullPointerException e) {
             System.out.println("no person in the state");
         }
+
     }
 
     public static void main(String[] args) {

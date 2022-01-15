@@ -83,4 +83,10 @@ public class ContactDetails
         this.phoneNo = phoneNo;
         this.email = email;
     }
+    @Override
+    public String toString() {
+        return String.format("Name: " + firstName +" "+ lastName
+                + " Address: "+ address + " City: "+ city + " State: "+ state
+                + "zip " + zip + " phone no. "+ phoneNo);
+    }
 }
