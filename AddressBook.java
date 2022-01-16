@@ -1,5 +1,9 @@
 package com.bridgelabz.addressbooksystem;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -57,6 +61,17 @@ public class AddressBook
         String email = sc.nextLine();
 
         ContactDetails contact = new ContactDetails(fName, lName, address, city, state, zip, phoneNo, email);
+
+        try(FileWriter fileWriter = new FileWriter("Static/PersonContacts.txt");) {
+            fileWriter.write("First Name :"+contact.getFirstName()+" \n"+
+                    "Last Name :"+contact.getLastName()+" \n"+"Address :"+contact.getAddress()+
+                    " \n"+"City :"+contact.getCity()+" \n"+"State :"+contact.getState()+" \n"+
+                    "Zip :"+contact.getZip()+" \n"+"Phone No :"+contact.getPhoneNo()+" \n"+
+                    "Email ID :"+contact.getEmail());
+            System.out.println("Done..!");
+        } catch (IOException e) {
+            System.out.println(e);
+        }
         return contact;
     }
 
@@ -188,7 +203,8 @@ public class AddressBook
         while(runLoop) {
             System.out.println("Press 1 for adding contact \nPress 2 to view contacts "
                     + "\nPress 3 to edit a contact \nPress 4 to delete a contact"
-                    + " \nPress 5 to view sorted address book \nPress 6 to exit");
+                    + " \nPress 5 to view sorted address book \nPress 6 to Read Address Book" +
+                    " \nPress 7 to EXIT");
             int ch = sc.nextInt();
 
             switch(ch) {
@@ -217,15 +233,33 @@ public class AddressBook
                     addBook.viewSortedByCity();
                     break;
 
-                case 6: System.out.println("exit");
+                case 6:
+                    readPersonContacts();
+                    break;
+
+                case 7: System.out.println("exit");
                     runLoop = false;
                     break;
 
                 default: System.out.println("No correct option chosen");
-
-
+                    break;
             }
         }
         return addBook;
+    }
+
+    public void readPersonContacts() {
+        File file = new File("Static/PersonContacts.txt");
+        if (file.exists()){
+            try(Scanner scanner = new Scanner(file);) {
+                while (scanner.hasNextLine()){
+                    System.out.println(scanner.nextLine());
+                }
+            } catch (FileNotFoundException e) {
+                System.out.println(e);
+            }
+        }else {
+            System.out.println("No Persons Contacts Found..!");
+        }
     }
 }
